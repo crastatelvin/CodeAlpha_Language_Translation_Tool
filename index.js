@@ -47,7 +47,7 @@ function playClickSound() {
 document.getElementById('sourceText').addEventListener('input', playClickSound);
 
 async function performTranslation(text, src, tgt) {
-  const url = https://translate.googleapis.com/translate_a/single?client=gtx&sl=\&sl=\&tl=\&dt=t&q=\;
+  const url = https://translate.googleapis.com/translate_a/single?client=gtx&sl=\&tl=\&dt=t&q=\;
   const response = await fetch(url);
   const data = await response.json();
   return data[0].map(item => item[0]).join('');
@@ -74,4 +74,13 @@ document.getElementById('translateBtn').addEventListener('click', async () => {
   const text = document.getElementById('sourceText').value;
   const translation = await performTranslation(text, 'en', 'es');
   await streamDecrypt(translation);
+});
+
+document.getElementById('copyBtn').addEventListener('click', () => {
+  navigator.clipboard.writeText(document.getElementById('outputText').textContent);
+});
+
+document.getElementById('ttsBtn').addEventListener('click', () => {
+  const utterance = new SpeechSynthesisUtterance(document.getElementById('outputText').textContent);
+  window.speechSynthesis.speak(utterance);
 });
