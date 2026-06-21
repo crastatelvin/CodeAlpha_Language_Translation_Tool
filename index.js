@@ -26,7 +26,6 @@ function animate() {
 }
 animate();
 
-// Web Audio API engine
 let audioCtx = null;
 function initAudio() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -46,3 +45,16 @@ function playClickSound() {
   osc.stop(audioCtx.currentTime + 0.05);
 }
 document.getElementById('sourceText').addEventListener('input', playClickSound);
+
+// Fetch translation API
+async function performTranslation(text, src, tgt) {
+  const url = https://translate.googleapis.com/translate_a/single?client=gtx&sl=\&tl=\&dt=t&q=\;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data[0].map(item => item[0]).join('');
+}
+document.getElementById('translateBtn').addEventListener('click', async () => {
+  const text = document.getElementById('sourceText').value;
+  const translation = await performTranslation(text, 'en', 'es');
+  document.getElementById('outputText').textContent = translation;
+});
