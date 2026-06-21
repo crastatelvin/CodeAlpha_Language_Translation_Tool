@@ -46,7 +46,16 @@ function playClickSound() {
 }
 document.getElementById('sourceText').addEventListener('input', playClickSound);
 
+function addLog(text) {
+  const line = document.createElement('div');
+  line.textContent = []  + text;
+  const logs = document.getElementById('logs');
+  logs.appendChild(line);
+  logs.scrollTop = logs.scrollHeight;
+}
+
 async function performTranslation(text, src, tgt) {
+  addLog("Fetching translation bridge link...");
   const url = https://translate.googleapis.com/translate_a/single?client=gtx&sl=\&tl=\&dt=t&q=\;
   const response = await fetch(url);
   const data = await response.json();
@@ -73,14 +82,18 @@ function streamDecrypt(targetString) {
 document.getElementById('translateBtn').addEventListener('click', async () => {
   const text = document.getElementById('sourceText').value;
   const translation = await performTranslation(text, 'en', 'es');
+  addLog("Signal packet received. Beginning stream decryption...");
   await streamDecrypt(translation);
+  addLog("Decryption success.");
 });
 
 document.getElementById('copyBtn').addEventListener('click', () => {
   navigator.clipboard.writeText(document.getElementById('outputText').textContent);
+  addLog("Decrypted buffer copied.");
 });
 
 document.getElementById('ttsBtn').addEventListener('click', () => {
   const utterance = new SpeechSynthesisUtterance(document.getElementById('outputText').textContent);
   window.speechSynthesis.speak(utterance);
+  addLog("Synthesizing voice output.");
 });
