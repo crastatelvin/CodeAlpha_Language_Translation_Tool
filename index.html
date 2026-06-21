@@ -2,31 +2,264 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Neural Translator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEURAL TRANSLATOR v3.0 // Cybernetic Link</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
+  <!-- Canvas Background for Futuristic Grid/Starfield -->
+  <canvas id="gridCanvas"></canvas>
+
+  <!-- Futuristic Scanning Overlay -->
+  <div class="scanlines"></div>
+  <div class="hologram-flicker"></div>
+
   <div class="app-container">
-    <header><h1>Neural Translator</h1></header>
-    <main class="translator-matrix">
-      <section class="input-panel">
-        <textarea id="sourceText" placeholder="Type text here..."></textarea>
+    <!-- Header Node -->
+    <header class="cyber-header">
+      <!-- Dual Branding -->
+      <div class="header-logo">
+        <!-- Futuristic Branding -->
+        <div class="logo-text futuristic-only">
+          <div class="logo-container">
+            <div class="logo-icon">▲</div>
+            <div>
+              <h1>NEURAL TRANSLATOR <span class="version">v3.0</span></h1>
+              <p class="subtitle">QUANTUM CRYPTO-LINGUAL INTERFACE</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Minimal Branding (LinguaVerse) -->
+        <div class="minimal-brand minimal-only">
+          <div class="minimal-logo-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.4z"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">LinguaVerse</span>
+            <span class="brand-sub">AI-Powered Neural Translation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Theme Switch Slider Control -->
+      <div class="theme-toggle-wrap">
+        <span class="toggle-mode-label">STYLE:</span>
+        <div class="theme-slider-switch">
+          <input type="checkbox" id="themeToggle" class="theme-toggle-checkbox">
+          <label for="themeToggle" class="theme-slider-label">
+            <span class="slider-text futuristic-label">CYBER</span>
+            <span class="slider-text minimal-label">MINIMAL</span>
+            <span class="slider-button"></span>
+          </label>
+        </div>
+      </div>
+      
+      <!-- System Stats / Gemini Badge -->
+      <div class="header-right-widgets">
+        <!-- System Stats Dashboard (Futuristic Only) -->
+        <div class="system-stats futuristic-only">
+          <div class="stat-box">
+            <span class="stat-label">LINK STATUS</span>
+            <span class="stat-value text-glow-cyan" id="linkStatus">ESTABLISHED</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">LATENCY</span>
+            <span class="stat-value text-glow-pink" id="pingValue">12 MS</span>
+          </div>
+        </div>
+
+        <!-- Gemini Badge (Minimal Only) -->
+        <div class="gemini-badge minimal-only">
+          <svg class="gemini-sparkle" viewBox="0 0 24 24">
+            <path d="M12 2c-.4 0-.8.3-.9.7l-1.8 5.4-5.4 1.8c-.4.1-.7.5-.7.9s.3.8.7.9l5.4 1.8 1.8 5.4c.1.4.5.7.9.7s.8-.3.9-.7l1.8-5.4 5.4-1.8c.4-.1.7-.5.7-.9s-.3-.8-.7-.9l-5.4-1.8-1.8-5.4c-.1-.4-.5-.7-.9-.7zm7 11c-.3 0-.5.2-.6.5l-.8 2.3-2.3.8c-.3.1-.5.3-.5.6s.2.5.5.6l2.3.8.8 2.3c.1.3.3.5.6.5s.5-.2.6-.5l.8-2.3 2.3-.8c.3-.1.5-.3.5-.6s-.2-.5-.5-.6l-2.3-.8-.8-2.3c-.1-.3-.3-.5-.6-.5z"/>
+          </svg>
+          <span>Powered by Gemini AI</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Minimal Hero Title Section (Minimal Only) -->
+    <div class="minimal-hero minimal-only">
+      <h2>Translate <span class="gradient-text">Anything</span> Instantly</h2>
+      <p class="hero-subtext">22+ Indian languages • Neural AI • Real-time</p>
+    </div>
+
+    <!-- Main Node Matrix -->
+    <main class="translator-matrix" id="translatorMatrix">
+      <!-- Minimal Selectors Bar (Spans full width in Minimal Mode) -->
+      <div class="minimal-selectors-bar minimal-only">
+        <div class="minimal-selector-group">
+          <span class="selector-lbl">SOURCE</span>
+          <div id="minimalSourceContainer" class="select-box-container"></div>
+        </div>
+        
+        <button id="minimalSwapBtn" class="minimal-swap-btn" title="Swap Languages">
+          <svg viewBox="0 0 24 24">
+            <path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/>
+          </svg>
+        </button>
+        
+        <div class="minimal-selector-group">
+          <span class="selector-lbl">TARGET</span>
+          <div id="minimalTargetContainer" class="select-box-container"></div>
+        </div>
+      </div>
+
+      <!-- Input Panel -->
+      <section class="cyber-panel input-panel">
+        <div class="panel-header">
+          <div class="panel-indicator"></div>
+          <h2>INPUT MATRIX</h2>
+          <div class="lang-selector-wrapper" id="futuristicSourceContainer">
+            <!-- Source Language Select Box (Moved dynamically by JS) -->
+            <select id="sourceLang" class="lang-select">
+              <option value="auto">🌐 AUTO-DETECT</option>
+              <option value="en" selected>🇬🇧 ENGLISH</option>
+              <option value="es">🇪🇸 SPANISH</option>
+              <option value="fr">🇫🇷 FRENCH</option>
+              <option value="de">🇩🇪 GERMAN</option>
+              <option value="it">🇮🇹 ITALIAN</option>
+              <option value="ja">🇯🇵 JAPANESE</option>
+              <option value="zh">🇨🇳 CHINESE</option>
+              <option value="ko">🇰🇷 KOREAN</option>
+              <option value="ru">🇷🇺 RUSSIAN</option>
+              <option value="pt">🇵🇹 PORTUGUESE</option>
+              <option value="hi">🇮🇳 HINDI</option>
+              <option value="ar">🇦🇪 ARABIC</option>
+              <option value="tr">🇹🇷 TURKISH</option>
+              <option value="nl">🇳🇱 DUTCH</option>
+              <option value="sv">🇸🇪 SWEDISH</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="panel-body">
+          <textarea id="sourceText" placeholder="Enter transmission to translate..." maxlength="2000"></textarea>
+          <div class="glitch-overlay" id="textareaGlitch"></div>
+        </div>
+
+        <div class="panel-footer">
+          <div class="char-counter">
+            <span id="charCount">0</span> chars<span class="minimal-only"> • Ctrl+Enter to translate</span>
+          </div>
+          
+          <button id="clearBtn" class="cyber-btn-sec futuristic-only" title="Purge Buffer">
+            <svg class="btn-icon" viewBox="0 0 24 24">
+              <path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z"/>
+            </svg>
+            <span>PURGE</span>
+          </button>
+
+          <!-- Minimal Translate Button (Inline) -->
+          <button id="minimalTranslateBtn" class="minimal-translate-btn minimal-only">
+            <svg class="bolt-icon" viewBox="0 0 24 24">
+              <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+            </svg>
+            <span>Translate</span>
+          </button>
+        </div>
       </section>
-      <section class="control-hub">
-        <button id="translateBtn">Translate</button>
+
+      <!-- Central Control Hub (Futuristic Mode Only) -->
+      <section class="control-hub futuristic-only">
+        <button id="swapBtn" class="swap-btn" title="Invert Translation Matrix">
+          <div class="swap-ring"></div>
+          <svg class="swap-icon" viewBox="0 0 24 24">
+            <path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/>
+          </svg>
+        </button>
+
+        <button id="translateBtn" class="translate-btn">
+          <div class="btn-glow"></div>
+          <div class="btn-scan"></div>
+          <div class="btn-content">
+            <span class="btn-main-text">DECRYPT</span>
+            <span class="btn-sub-text">EXECUTE LINK</span>
+          </div>
+          <svg class="btn-ring-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="46" class="ring-bg"/>
+            <circle cx="50" cy="50" r="46" class="ring-progress" id="progressRing"/>
+          </svg>
+        </button>
       </section>
-      <section class="output-panel">
-        <div id="outputText">Translation will appear here...</div>
-        <div class="actions">
-          <button id="ttsBtn">Speak</button>
-          <button id="copyBtn">Copy</button>
+
+      <!-- Output Panel -->
+      <section class="cyber-panel output-panel">
+        <div class="panel-header">
+          <div class="panel-indicator indicator-glow-purple"></div>
+          <h2>OUTPUT MATRIX</h2>
+          <div class="lang-selector-wrapper" id="futuristicTargetContainer">
+            <!-- Target Language Select Box (Moved dynamically by JS) -->
+            <select id="targetLang" class="lang-select">
+              <option value="es" selected>🇪🇸 SPANISH</option>
+              <option value="en">🇬🇧 ENGLISH</option>
+              <option value="fr">🇫🇷 FRENCH</option>
+              <option value="de">🇩🇪 GERMAN</option>
+              <option value="it">🇮🇹 ITALIAN</option>
+              <option value="ja">🇯🇵 JAPANESE</option>
+              <option value="zh">🇨🇳 CHINESE</option>
+              <option value="ko">🇰🇷 KOREAN</option>
+              <option value="ru">🇷🇺 RUSSIAN</option>
+              <option value="pt">🇵🇹 PORTUGUESE</option>
+              <option value="hi">🇮🇳 HINDI</option>
+              <option value="ar">🇦🇪 ARABIC</option>
+              <option value="tr">🇹🇷 TURKISH</option>
+              <option value="nl">🇳🇱 DUTCH</option>
+              <option value="sv">🇸🇪 SWEDISH</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="panel-body output-body">
+          <div class="output-container">
+            <div id="outputText" class="placeholder-text">Decrypted signal will render here...</div>
+            <div id="outputCursor" class="blinking-cursor hidden">█</div>
+          </div>
+          <div class="scanning-bar hidden" id="scanningBar"></div>
+        </div>
+
+        <div class="panel-footer">
+          <button id="ttsBtn" class="cyber-btn-sec" title="Synthesize Voice Output" disabled>
+            <svg class="btn-icon" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+            <span>VOICE</span>
+          </button>
+          
+          <button id="copyBtn" class="cyber-btn" title="Copy Decrypted Buffer" disabled>
+            <svg class="btn-icon" viewBox="0 0 24 24">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            <span>CLONE BUFFER</span>
+          </button>
         </div>
       </section>
     </main>
-    <footer>
-      <div id="logs" style="height: 100px; overflow-y: auto; background: #000; padding: 10px; font-family: monospace;"></div>
+
+    <!-- Terminal Console Log (Futuristic Log Terminal) -->
+    <footer class="cyber-terminal futuristic-only">
+      <div class="terminal-header">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot yellow"></div>
+        <div class="terminal-dot green"></div>
+        <span class="terminal-title">NEURAL LINK PROCESS CONSOLE</span>
+      </div>
+      <div class="terminal-logs" id="terminalLogs">
+        <div class="log-line text-cyan">[SYSTEM] Booting Neural Link Translator v3.0...</div>
+        <div class="log-line text-cyan">[SYSTEM] Initializing WebAudio synthesizer engine...</div>
+        <div class="log-line text-green">[SYSTEM] Audio nodes online. Custom waveform presets loaded.</div>
+        <div class="log-line text-green">[SYSTEM] Translation bridge active. Ready for transmission.</div>
+      </div>
     </footer>
   </div>
+
   <script src="index.js"></script>
 </body>
 </html>
