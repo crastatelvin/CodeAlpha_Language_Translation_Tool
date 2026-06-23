@@ -53,6 +53,12 @@ By default, the application runs entirely in-browser, performing secure HTTP han
 ### 1) Cyber HUD Mode
 A cybernetic dashboard displaying system telemetry, real-time logging, a central spinning progress indicator, scanlines, and glow indicators.
 
+#### System Initializing & Idle State
+![Cyber HUD Mode - Idle](./assets/cyber_hud_empty.png)
+
+#### Translation Decryption Stream Active
+![Cyber HUD Mode - Translation Active](./assets/cyber_hud_translation.png)
+
 ### 2) Minimalist Theme
 A clean layout with flag icons, centered controls, a vertical splitter, and inline purple action triggers.
 
