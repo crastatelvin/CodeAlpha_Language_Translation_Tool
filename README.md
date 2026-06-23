@@ -88,7 +88,7 @@ A clean layout with flag icons, centered controls, a vertical splitter, and inli
 │                        User Interface Controller                       │
 │                                                                        │
 │  [Theme Toggle] ──► Switches CSS Class (.theme-minimal) on Body        │
-│  [Source Input] ──► Updates Character Counter + Fires Synthesis Click   │
+│  [Source Input] ──► Updates Character Counter + Fires Synthesis Click  │
 │  [Decrypt Click] ──► Triggers Translation Pipeline                     │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │
