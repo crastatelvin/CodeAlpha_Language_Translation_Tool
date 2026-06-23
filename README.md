@@ -56,11 +56,13 @@ A cybernetic dashboard displaying system telemetry, real-time logging, a central
 #### System Initializing & Idle State
 ![Cyber HUD Mode - Idle](./assets/cyber_hud_empty.png)
 
-#### Translation Decryption Stream Active
-![Cyber HUD Mode - Translation Active](./assets/cyber_hud_translation.png)
 
 ### 2) Minimalist Theme
 A clean layout with flag icons, centered controls, a vertical splitter, and inline purple action triggers.
+
+#### Translation Decryption Stream Active
+![Cyber HUD Mode - Translation Active](./assets/cyber_hud_translation.png)
+
 
 ---
 
@@ -94,7 +96,7 @@ A clean layout with flag icons, centered controls, a vertical splitter, and inli
 ┌────────────────────────────────────────────────────────────────────────┐
 │                      Neural Translation Engine                         │
 │                                                                        │
-│  1. Check Primary Node  ──► fetch(Google Translate gtx Endpoint)        │
+│  1. Check Primary Node  ──► fetch(Google Translate gtx Endpoint)       │
 │  2. Fail Safe Fallback  ──► fetch(MyMemory Public Translation API)     │
 │  3. Auto Detection      ──► Reports detected language code to log      │
 └───────────────────────────────────┬────────────────────────────────────┘
@@ -103,7 +105,7 @@ A clean layout with flag icons, centered controls, a vertical splitter, and inli
 ┌────────────────────────────────────────────────────────────────────────┐
 │                         Decryption Renderer                            │
 │                                                                        │
-│  Matrix Stream: Output cycles random cypher glyphs [0,1,X,Δ,Ψ,Ω,§,%...]  │
+│  Matrix Stream: Output cycles random cypher glyphs [0,1,X,Δ,Ψ,Ω,§,%..] │
 │  Web Audio Sync: Emits high-frequency synthesis ticks during typing    │
 │  Final Sweep: Triggers dual-oscillator chime chord upon completion     │
 └───────────────────────────────────┬────────────────────────────────────┘
