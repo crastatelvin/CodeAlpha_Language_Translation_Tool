@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/images/linguaverse-logo.png" alt="LinguaVerse logo" width="180"/>
+
 # 🌐 LINGUAVERSE
 
 ### AI-Powered Neural Translation Tool — Dual Cyber HUD & Minimalist Interface
